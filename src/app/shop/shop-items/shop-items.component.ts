@@ -1,4 +1,4 @@
-import { Component,Input, OnInit } from '@angular/core';
+import { Component,Input, OnInit , ChangeDetectorRef, AfterViewInit} from '@angular/core';
 import { IProducts } from '../../sheard/Products';
 
 @Component({
@@ -6,8 +6,13 @@ import { IProducts } from '../../sheard/Products';
   templateUrl: './shop-items.component.html',
   styleUrl: './shop-items.component.scss'
 })
-export class ShopItemsComponent implements OnInit{
+export class ShopItemsComponent implements AfterViewInit {
   @Input() products!: IProducts;
-  ngOnInit(): void{
+
+  constructor(private cdr: ChangeDetectorRef) {}
+
+  ngAfterViewInit(): void {
+    // 確保內容完全載入並檢測變更
+    this.cdr.detectChanges();
   }
 }
